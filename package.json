@@ -16,8 +16,10 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.1.4",
+    "fast-glob": "^3.3.2",
     "sass": "^1.80.6",
     "vite": "^5.4.10",
+    "vite-plugin-svg-icons": "^2.0.1",
     "vite-plugin-vue-devtools": "^7.6.2"
   }
 }

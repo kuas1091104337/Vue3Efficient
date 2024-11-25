@@ -1,6 +1,8 @@
 <script setup>
 import { onMounted, ref, computed } from "vue";
 import axios from "axios";
+import CardBox from "@/components/CardBox.vue";
+
 const coursesArr = ref([]),
       coursesId = ref(0),
       // targetArr = computed(() => {
@@ -12,6 +14,8 @@ const coursesArr = ref([]),
       // }),
       targetArr = computed(() => coursesId.value === 0 ? coursesArr.value : coursesArr.value.filter(item => item.id === coursesId.value)),
       openUrl = (url) => window.open(url,"_blank"),
+      handleMore = path => window.open(path,"_blank"),
+      handleClickCard = (id) => coursesId.value = id,
       getDetalData = (id) => coursesId.value = id;
 
 onMounted(async () => {
@@ -25,7 +29,9 @@ onMounted(async () => {
 
 <template>
   <div class="cardWrap">
-    <a class="cardBox" v-for="item in targetArr" :key="item.id" href="javascript:;" @click="getDetalData(item.id)">
+    <CardBox :courseArr="targetCourseArr" @onClickCard="handleClickCard" @onMore="handleMore" />
+    <!-- <CardBox :courseArr="targetArr" :getDetalData="getDetalData" :openUrl="openUrl" /> -->
+    <!-- <a class="cardBox" v-for="item in targetArr" :key="item.id" href="javascript:;" @click="getDetalData(item.id)">
       <p class="more" @click.self="openUrl(item.moreUrl)">觀看更多</p>
       <img :src="item.photo" :alt="item.name" />
       <div class="content">
@@ -39,7 +45,7 @@ onMounted(async () => {
           <h2>NTD: {{ item.money }}</h2>
         </div>
       </div>
-    </a>
+    </a> -->
     <button class="cardBack" v-show="targetArr.length !== 3" @click="getDetalData(0)">Back</button>
   </div>
 </template>

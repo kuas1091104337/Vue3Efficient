@@ -27,6 +27,7 @@ const router = createRouter({
       path: "/watchEx",
       component: () => import("../pages/watchEx.vue"),
     },
+
     {
       path: "/watchComputedEx",
       component: () => import("../pages/watchComputedEx.vue"),
@@ -43,6 +44,10 @@ const router = createRouter({
     {
       path: "/courses/:id",
       component: () => import("../pages/courses/[id].vue"),
+    },
+    {
+      path: "/slot",
+      component: () => import("../pages/slot.vue"),
     },
     {
       name: "member",

@@ -23,6 +23,7 @@
     <RouterLink to="/courses" class="menu_list">動態網址設定</RouterLink>
     <RouterLink to="/member" class="menu_list">會員中心</RouterLink>
     <RouterLink to="/from" class="menu_list">常見表單綁定</RouterLink>
+    <RouterLink to="/slot" class="menu_list">組件進階應用</RouterLink>
   </div>
   <!-- <RouterView /> -->
   <router-view v-slot="{Component}">

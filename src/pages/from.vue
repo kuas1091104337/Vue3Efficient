@@ -33,7 +33,7 @@ const email = ref(''),
         if(!email.value) return alert('email不能空白');
         if(!password.value) return alert('密碼不能空白');
         if(!emailCheck.test(email.value)) return alert('email格式錯誤');
-        if(!passwordCheck.test(password.value)) return alert('密碼格式錯誤');
+        // if(!passwordCheck.test(password.value)) return alert('密碼格式錯誤');
         const req = { email:email.value, password:password.value, isCheck:isCheck.value }
         console.log(req);
       },
@@ -42,9 +42,11 @@ const email = ref(''),
       handRegisteredFn = async () => {
         errorMessage.value = {}
         try{
-          // const res = await axios.post("https://vue-lessons-api.vercel.app/auth/registered",registered.value);
-          await axios.post("https://vue-lessons-api.vercel.app/auth/registered",registered.value);
+          const res = await axios.post("https://vue-lessons-api.vercel.app/auth/registered",registered.value);
+          // await axios.post("https://vue-lessons-api.vercel.app/auth/registered",registered.value);
           isSuccess.value = true
+          console.log(res.data);
+          
         }catch(error){
           // 密碼長度須超過6個字元', email: '請輸入正確的email格式
           console.log(error.response.data)
@@ -63,137 +65,140 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="from">
-    <img class="from_logo" src="../assets/thecodingprologo.png" alt="" />
-    <div class="from_box">
-      <p>單一的複選框，綁定布林類型值</p>
-      <input type="checkbox" id="checkbox" v-model="checked" />
-      <label for="checkbox">{{ checked }}</label>
-    </div>
-    <div class="from_box">
-      <p>複選框</p>
-      <p>Checked names: {{ checkedNames }}</p>
-      <input type="checkbox" id="jack" value="Jack" v-model="checkedNames" />
-      <label for="jack">Jack</label>
-      <input type="checkbox" id="john" value="John" v-model="checkedNames" />
-      <label for="john">John</label>
-      <input type="checkbox" id="mike" value="Mike" v-model="checkedNames" />
-      <label for="mike">Mike</label>
-    </div>
-    <div class="from_box">
-      <p>單選按鈕</p>
-      <div>Picked: {{ picked }}</div>
-      <input type="radio" id="one" value="One" v-model="picked" />
-      <label for="one">One</label>
-      <input type="radio" id="two" value="Two" v-model="picked" />
-      <label for="two">Two</label>
-    </div>
-    <div class="from_box">
-      <p>選擇器</p>
-      <div>Selected: {{ selected }}</div>
-      <select v-model="selected">
-        <option disabled value="">Please select one</option>
-        <option>A</option>
-        <option>B</option>
-        <option>C</option>
-      </select>
-    </div>
-    <div class="post">
-      <div class="post_wrap" v-if="!isSuccess">
-        <div class="post__box">
-          <p class="post__box_txt">NAME</p>
-          <input class="post__box_input" type="text" placeholder="輸入使用者名稱" v-model="registered.username" />
-          <p class="post__box_error">{{ errorMessage.username }}</p><!-- error message -->
+  <!-- <KeepAlive> -->
+    <div class="from">
+      <img class="from_logo" src="../assets/thecodingprologo.png" alt="" />
+      <KeepAlive>
+        <div class="from_box">
+          <p>單一的複選框，綁定布林類型值</p>
+          <input type="checkbox" id="checkbox" v-model="checked" />
+          <label for="checkbox">{{ checked }}</label>
         </div>
-        <div class="post__box">
-          <p class="post__box_txt">PASSWORD</p>
-          <input class="post__box_input" type="password" placeholder="輸入密碼" v-model="registered.password" />
-          <p class="post__box_error">{{ errorMessage.password }}</p><!-- error message -->
-        </div>
-        <div class="post__box">
-          <p class="post__box_txt">E-MAIL</p>
-          <input class="post__box_input" type="text" placeholder="輸入email" v-model="registered.email" />
-          <p class="post__box_error">{{ errorMessage.email }}</p><!-- error message -->
-        </div>
-        <div class="post__box">
-          <p class="post__box_txt">年齡</p>
-          <input class="post__box_input" type="number" placeholder="輸入年齡" v-model="registered.age" />
-        </div>
-        <div class="post__box post__box-center">
-          <input class="post__box_checkbox" type="radio" id="boy" value="boy" v-model="registered.sex" />
-          <label class="post__box_label" for="boy">boy</label>
-          <input class="post__box_checkbox" type="radio" id="girl" value="girl" v-model="registered.sex" />
-          <label class="post__box_label" for="girl">girl</label>
-        </div>
-        <div class="post__box post__box-center">
-          <input class="post__box_checkbox" type="checkbox" id="checkbox" v-model="registered.terms" />
-          <label class="post__box_label" for="checkbox">我已閱讀使用者條款</label>
-        </div>
-        <button class="from_btn" @click="handRegisteredFn">送出</button>
+      </KeepAlive>
+      <div class="from_box">
+        <p>複選框</p>
+        <p>Checked names: {{ checkedNames }}</p>
+        <input type="checkbox" id="jack" value="Jack" v-model="checkedNames" />
+        <label for="jack">Jack</label>
+        <input type="checkbox" id="john" value="John" v-model="checkedNames" />
+        <label for="john">John</label>
+        <input type="checkbox" id="mike" value="Mike" v-model="checkedNames" />
+        <label for="mike">Mike</label>
       </div>
-      <!-- success page -->
-      <div class="post_wrap" v-else>
-        <h1 class="post__title">註冊成功</h1>
+      <div class="from_box">
+        <p>單選按鈕</p>
+        <div>Picked: {{ picked }}</div>
+        <input type="radio" id="one" value="One" v-model="picked" />
+        <label for="one">One</label>
+        <input type="radio" id="two" value="Two" v-model="picked" />
+        <label for="two">Two</label>
       </div>
+      <div class="from_box">
+        <p>選擇器</p>
+        <div>Selected: {{ selected }}</div>
+        <select v-model="selected">
+          <option disabled value="">Please select one</option>
+          <option>A</option>
+          <option>B</option>
+          <option>C</option>
+        </select>
+      </div>
+      <div class="post">
+        <div class="post_wrap" v-if="!isSuccess">
+          <div class="post__box">
+            <p class="post__box_txt">NAME</p>
+            <input class="post__box_input" type="text" placeholder="輸入使用者名稱" v-model="registered.username" />
+            <p class="post__box_error">{{ errorMessage.username }}</p><!-- error message -->
+          </div>
+          <div class="post__box">
+            <p class="post__box_txt">PASSWORD</p>
+            <input class="post__box_input" type="password" placeholder="輸入密碼" v-model="registered.password" />
+            <p class="post__box_error">{{ errorMessage.password }}</p><!-- error message -->
+          </div>
+          <div class="post__box">
+            <p class="post__box_txt">E-MAIL</p>
+            <input class="post__box_input" type="text" placeholder="輸入email" v-model="registered.email" />
+            <p class="post__box_error">{{ errorMessage.email }}</p><!-- error message -->
+          </div>
+          <div class="post__box">
+            <p class="post__box_txt">年齡</p>
+            <input class="post__box_input" type="number" placeholder="輸入年齡" v-model="registered.age" />
+          </div>
+          <div class="post__box post__box-center">
+            <input class="post__box_checkbox" type="radio" id="boy" value="boy" v-model="registered.sex" />
+            <label class="post__box_label" for="boy">boy</label>
+            <input class="post__box_checkbox" type="radio" id="girl" value="girl" v-model="registered.sex" />
+            <label class="post__box_label" for="girl">girl</label>
+          </div>
+          <div class="post__box post__box-center">
+            <input class="post__box_checkbox" type="checkbox" id="postList" v-model="registered.terms" />
+            <label class="post__box_label" for="postList">我已閱讀使用者條款</label>
+          </div>
+          <button class="from_btn" @click="handRegisteredFn">送出</button>
+        </div>
+        <div class="post_wrap" v-else> <!-- success page -->
+          <h1 class="post__title">註冊成功</h1>
+        </div>
+      </div>
+      <div class="selectWrap">
+        <select class="selectWrap_item" v-model="city">
+          <option disabled value="">請選擇縣市</option>
+          <option v-for="item in twZip.city" :key="item.name">{{ item.name }}</option>
+        </select>
+        <select class="selectWrap_item" v-model="area_c">
+          <option disabled value="">請選擇區域 computed</option>
+          <option v-for="item in twZipArea" :key="item.name" :value="item.zip">{{ item.name }}</option>
+        </select>
+        <select class="selectWrap_item" v-model="area_w">
+          <option disabled value="">請選擇區域 watch</option>
+          <option v-for="item in twZip.area" :key="item.name" :value="item.zip">{{ item.name }}</option>
+        </select>
+      </div>
+      <button class="from_btn" @click="handSelect">送出</button>
+      <ul class="checkBox">
+        <li class="checkBox_list" v-for="(item,idx) in courselist.tags" :key="item.tag">
+          <input v-model="courselist.checkItem" type="checkbox" :value="item.tag" :id="item.tag" class="from__checkbox"/>
+          <label :for="item.tag">{{ item.tag }}</label>
+        </li>
+      </ul>
+      <button class="from_btn" @click="selectCheck">送出</button>
+      <div class="from_box">
+        <p class="from__tag">E-MAIL</p>
+        <input 
+          class="from__input" 
+          type="text" 
+          placeholder="輸入email"
+          v-model="email"
+        />
+      </div>
+      <div class="from_box">
+        <p class="from__tag">密碼</p>
+        <input 
+          class="from__input" 
+          type="text" 
+          placeholder="輸入密碼"
+          v-model="password"
+        />
+      </div>
+      <div class="from_box from_box-fc">
+        <input 
+          type="checkbox" 
+          id="checkbox123" 
+          class="from__checkbox"
+          v-model="isCheck"
+        />
+        <label class="from__tag" for="checkbox123">我已閱讀使用者條款</label>
+      </div>
+      <button class="from_btn" @click="submitFrom">登入</button>
     </div>
-    <div class="selectWrap">
-      <select class="selectWrap_item" v-model="city">
-        <option disabled value="">請選擇縣市</option>
-        <option v-for="item in twZip.city" :key="item.name">{{ item.name }}</option>
-      </select>
-      <select class="selectWrap_item" v-model="area_c">
-        <option disabled value="">請選擇區域 computed</option>
-        <option v-for="item in twZipArea" :key="item.name" :value="item.zip">{{ item.name }}</option>
-      </select>
-      <select class="selectWrap_item" v-model="area_w">
-        <option disabled value="">請選擇區域 watch</option>
-        <option v-for="item in twZip.area" :key="item.name" :value="item.zip">{{ item.name }}</option>
-      </select>
-    </div>
-    <button class="from_btn" @click="handSelect">送出</button>
-    <ul class="checkBox">
-      <li class="checkBox_list" v-for="(item,idx) in courselist.tags" :key="item.tag">
-        <input v-model="courselist.checkItem" type="checkbox" :value="item.tag" :id="item.tag" class="from__checkbox"/>
-        <label :for="item.tag">{{ item.tag }}</label>
-      </li>
-    </ul>
-    <button class="from_btn" @click="selectCheck">送出</button>
-    <div class="from_box">
-      <p class="from__tag">E-MAIL</p>
-      <input 
-        class="from__input" 
-        type="text" 
-        placeholder="輸入email"
-        v-model="email"
-      />
-    </div>
-    <div class="from_box">
-      <p class="from__tag">密碼</p>
-      <input 
-        class="from__input" 
-        type="text" 
-        placeholder="輸入密碼"
-        v-model="password"
-      />
-    </div>
-    <div class="from_box from_box-fc">
-      <input 
-        type="checkbox" 
-        id="checkbox" 
-        class="from__checkbox"
-        v-model="isCheck"
-      />
-      <label class="from__tag" for="checkbox">我已閱讀使用者條款</label>
-    </div>
-    <button class="from_btn" @click="submitFrom">登入</button>
-  </div>
+  <!-- </KeepAlive> -->
 </template>
 
 <style lang="scss">
 .post{
   font-size:16px;
   line-height:1.5;
-  margin-bottom:50px;
+  margin-bottom:0;
   &_wrap{
     width:410px;
     margin:0 auto;

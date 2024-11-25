@@ -1,6 +1,7 @@
 <script setup>
-import { onMounted, ref, reactive, watch } from "vue";
 import axios from "axios";
+import { onMounted, ref, reactive, watch } from "vue";
+import CardBox from "@/components/CardBox.vue";
 
 const name1 = ref('Jacky'),
       name2 = ref('Alex'),
@@ -10,17 +11,15 @@ const name1 = ref('Jacky'),
       coursesArr = ref([]),
       targetCourseArr = ref([]),
       coursesDetal = ref({}),
-      userInfo1 = reactive({
-        name:'Mike', age:12, address:'Taipei'
-      }),
-      userInfo2 = ref({
-        name:'Mike', age:12, address:'Taipei'
-      }),
+      userInfo1 = reactive({ name:'Mike', age:12, address:'Taipei' }),
+      userInfo2 = ref({ name:'Mike', age:12, address:'Taipei' }),
       stopWatch3 = () => isStop3.value = true,
       stopWatchAll = () => isStopAll.value = true,
       stopWatch2 = () => stop2(),
+      getDetalData = (id) => coursesId.value = id,
+      handleClickCard = (id) => coursesId.value = id,
       openUrl = (url) => window.open(url,"_blank"),
-      getDetalData = (id) => coursesId.value = id;
+      handleMore = path => window.open(path,"_blank");
       
 watch(name1,(newName1,oldName1) => {console.log('newName1:'+newName1+',oldName1:'+oldName1)},{once:true});
 const stop2 = watch(name2,(newName2,oldName2) => {console.log('newName2:'+newName2+',oldName2:'+oldName2)},{immediate:true});
@@ -77,8 +76,9 @@ onMounted(async () => {
       <button class="content__button" @click="stopWatchAll">STOP WATCH ALL</button>
     </div>
     <div class="cardWrap">
-      <!-- <a class="cardBox" v-for="item in coursesArr" :key="item.id" href="javascript:;" @click="getDetalData(item.id)"> -->
-      <a class="cardBox" v-for="item in targetCourseArr" :key="item.id" href="javascript:;" @click="getDetalData(item.id)">
+      <CardBox :courseArr="targetCourseArr" @onClickCard="handleClickCard" @onMore="handleMore" />
+      <!-- <CardBox :courseArr="targetCourseArr" :getDetalData="getDetalData" :openUrl="openUrl" /> -->
+      <!-- <a class="cardBox" v-for="item in targetCourseArr" :key="item.id" href="javascript:;" @click="getDetalData(item.id)">
         <p class="more" @click.self="openUrl(item.moreUrl)">觀看更多</p>
         <img :src="item.photo" :alt="item.name" />
         <div class="content">
@@ -92,7 +92,7 @@ onMounted(async () => {
             <h2>NTD: {{ item.money }}</h2>
           </div>
         </div>
-      </a>
+      </a> -->
       <button class="cardBack" v-show="targetCourseArr.length !== 3" @click="getDetalData(0)">Back</button>
     </div>
   </div>
@@ -117,31 +117,6 @@ onMounted(async () => {
   display:flex;
   flex-wrap:wrap;
   justify-content:flex-start;
-}
-.cardBox {
-  cursor: pointer;
-  width:320px;
-  display:block;
-  background-color:rgb(249, 249, 249);
-  border-radius:5px;
-  opacity:.85;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  padding:0;
-  margin:0 30px 20px;
-  position:relative;
-  transition:opacity .3s;
-  &:hover {opacity:1;}
-  > img{width:100%;}
-}
-.more{
-  color:white;
-  font-size:12px;
-  background-color:#00000057;
-  padding:5px 10px;
-  margin:0;
-  position:absolute;
-  top:0;
-  right:0;
 }
 .cardBack{margin:0 auto;}
 </style>

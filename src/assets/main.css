@@ -7,8 +7,8 @@ body {
 #app {
   font-weight: normal;
   text-align: center;
-  /* max-width: 1280px; */
-  padding: 2rem;
+  max-width: 1366px; /*  */
+  padding: 2rem 0;
   margin: 0 auto;
 }
 a,
