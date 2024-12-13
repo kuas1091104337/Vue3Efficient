@@ -50,6 +50,14 @@ const router = createRouter({
       component: () => import("../pages/slot.vue"),
     },
     {
+      path: "/checkList",
+      component: () => import("../pages/checkList.vue"),
+    },
+    {
+      path: "/storage",
+      component: () => import("../pages/storage.vue"),
+    },
+    {
       name: "member",
       path: "/member",
       component: Member,

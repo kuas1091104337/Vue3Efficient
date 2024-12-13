@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, KeepAlive } from "vue";
+import { ref, onMounted, KeepAlive, defineAsyncComponent } from "vue";
 import ContentUI from '@/components/ContentUI.vue'
 import MoneyUI from '@/components/MoneyUI.vue'
 import HomeUI from '@/components/HomeUI.vue'

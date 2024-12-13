@@ -13,7 +13,7 @@ const props = defineProps({
         //   default:() => {}
         // },
       }),
-      emit = defineEmits(['onClickCard','onMore']),
+      emit = defineEmits(['onClickCard','onMore']), 
       handleClickCard = id => emit('onClickCard',id),
       handleMore = path => emit('onMore',path);
   // str:{ type:String, default:'text' },
