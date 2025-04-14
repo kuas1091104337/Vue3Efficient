@@ -18,7 +18,6 @@ onMounted(async () => {
   coursesArr.value = res.data;
 });
 </script>
-</script> 
 <template>
   <div class="coursesBox">
     <div v-if="coursesArr.length === 0" class="coursesBox_wrap">
